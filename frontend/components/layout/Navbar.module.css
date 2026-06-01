@@ -1,0 +1,629 @@
+/* Navbar.module.css */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+/* Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display, 'Georgia', serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logoIcon {
+  font-size: 1.75rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logoText {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+.logoHighlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Desktop Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav a {
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  white-space: nowrap;
+}
+
+.nav a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.nav a:hover::before,
+.nav a.active::before {
+  width: 100%;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #667eea;
+}
+
+/* Sign In Button */
+.signInBtn {
+  padding: 0.5rem 1rem !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  border-radius: 10px;
+}
+
+.signInBtn::before {
+  display: none;
+}
+
+.signInBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  color: white !important;
+}
+
+/* Logout Button */
+.logoutBtn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.logoutBtn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Cart Link */
+.cartLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem !important;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  white-space: nowrap;
+}
+
+.cartLink:hover {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+}
+
+.cartIcon {
+  font-size: 1.1rem;
+}
+
+.cartText {
+  color: #475569;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: bounce 0.5s ease;
+}
+
+/* Mobile Menu Button */
+.menuButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.menuIcon {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: #475569;
+  transition: all 0.2s ease;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: #475569;
+  transition: all 0.2s ease;
+}
+
+.menuIcon::before {
+  top: -8px;
+}
+
+.menuIcon::after {
+  bottom: -8px;
+}
+
+.menuOpen .menuIcon {
+  background: transparent;
+}
+
+.menuOpen .menuIcon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.menuOpen .menuIcon::after {
+  transform: rotate(-45deg);
+  bottom: 0;
+}
+
+/* Mobile Overlay */
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1002;
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+.mobileOverlayOpen {
+  right: 0;
+  visibility: visible;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  animation: fadeIn 0.3s ease;
+}
+
+.mobileNav {
+  padding: 80px 1.5rem 2rem;
+  min-height: 100%;
+}
+
+.mobileNavHeader {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mobileUserInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobileAvatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.mobileUserName {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.mobileUserEmail {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #64748b;
+  word-break: break-all;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobileNavLinks a,
+.mobileLogoutBtn,
+.mobileSignInBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #475569;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.mobileNavLinks a:active,
+.mobileLogoutBtn:active,
+.mobileSignInBtn:active {
+  transform: scale(0.98);
+}
+
+.mobileNavLinks a:hover,
+.mobileLogoutBtn:hover,
+.mobileSignInBtn:hover {
+  background: #f1f5f9;
+  transform: translateX(4px);
+}
+
+.mobileNavLinks a.active {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  color: #667eea;
+}
+
+.mobileLogoutBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  color: #ef4444;
+  margin-top: 1rem;
+}
+
+.mobileSignInBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+}
+
+.mobileSignInBtn:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  color: white !important;
+}
+
+.navIcon {
+  font-size: 1.25rem;
+  width: 28px;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .nav {
+    gap: 1rem;
+  }
+  
+  .inner {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .inner {
+    padding: 0 1rem;
+    height: 60px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .menuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logoText {
+    font-size: 0.9rem;
+  }
+
+  .logoIcon {
+    font-size: 1.25rem;
+  }
+  
+  .logo {
+    gap: 0.35rem;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .inner {
+    height: 56px;
+    padding: 0 0.75rem;
+  }
+
+  .logoText {
+    font-size: 0.8rem;
+  }
+
+  .logoIcon {
+    font-size: 1.1rem;
+  }
+
+  .mobileOverlay {
+    max-width: 100%;
+  }
+
+  .mobileNav {
+    padding: 70px 1rem 1.5rem;
+  }
+  
+  .mobileNavLinks a,
+  .mobileLogoutBtn,
+  .mobileSignInBtn {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.95rem;
+  }
+  
+  .navIcon {
+    font-size: 1.1rem;
+    width: 24px;
+  }
+  
+  .mobileAvatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .mobileUserName {
+    font-size: 0.9rem;
+  }
+  
+  .mobileUserEmail {
+    font-size: 0.7rem;
+  }
+}
+
+/* Landscape mode for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .mobileOverlay {
+    overflow-y: auto;
+  }
+  
+  .mobileNav {
+    padding: 70px 1rem 1rem;
+  }
+  
+  .mobileNavLinks {
+    gap: 0.25rem;
+  }
+  
+  .mobileNavLinks a,
+  .mobileLogoutBtn,
+  .mobileSignInBtn {
+    padding: 0.6rem 0.875rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .mobileNavLinks a:active,
+  .mobileLogoutBtn:active,
+  .mobileSignInBtn:active {
+    background: #f1f5f9;
+    transform: scale(0.98);
+  }
+  
+  .nav a:active {
+    color: #667eea;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .header.scrolled {
+    background: rgba(15, 23, 42, 0.98);
+  }
+
+  .logoText {
+    background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav a {
+    color: #94a3b8;
+  }
+
+  .cartLink {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .cartText {
+    color: #cbd5e1;
+  }
+
+  .mobileOverlay {
+    background: #0f172a;
+  }
+
+  .mobileUserName {
+    color: #e2e8f0;
+  }
+
+  .mobileUserEmail {
+    color: #94a3b8;
+  }
+
+  .mobileNavLinks a {
+    color: #cbd5e1;
+  }
+
+  .mobileNavLinks a:hover,
+  .mobileNavLinks a:active {
+    background: #1e293b;
+  }
+  
+  .mobileNavHeader {
+    border-bottom-color: #334155;
+  }
+}
+
+/* Reduced Motion Preference - No global selectors */
+@media (prefers-reduced-motion: reduce) {
+  .logoIcon,
+  .cartBadge,
+  .backdrop,
+  .mobileOverlay,
+  .menuIcon,
+  .menuIcon::before,
+  .menuIcon::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .logo:hover,
+  .signInBtn:hover,
+  .logoutBtn:hover,
+  .cartLink:hover,
+  .mobileNavLinks a:hover,
+  .mobileLogoutBtn:hover,
+  .mobileSignInBtn:hover {
+    transform: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .cartBadge {
+    background: #ef4444;
+  }
+  
+  .signInBtn,
+  .mobileSignInBtn {
+    background: #667eea;
+  }
+}

@@ -1,0 +1,91 @@
+.hero {
+  padding: 5rem 0 4rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(61, 139, 139, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 50%, rgba(201, 169, 98, 0.06) 0%, transparent 50%),
+    var(--bg);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  max-width: 14ch;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  max-width: 52ch;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.features {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.feature h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.feature p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.featureIcon {
+  display: block;
+  color: var(--accent);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.collection {
+  padding: 4rem 0;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.sectionHead h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.sectionHead a {
+  font-size: 0.9rem;
+}
