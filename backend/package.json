@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "build": "node scripts/ensureUploadDirs.js",
     "start": "node index.js",
     "seed": "node scripts/seed.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
