@@ -1,9 +1,27 @@
 .hero {
   padding: 5rem 0 4rem;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(61, 139, 139, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 80% 50%, rgba(201, 169, 98, 0.06) 0%, transparent 50%),
+    radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      rgba(61, 139, 139, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 80% 50%,
+      rgba(201, 169, 98, 0.06) 0%,
+      transparent 50%
+    ),
     var(--bg);
+}
+
+.bannerImage {
+  width: 100%;
+  max-width: 1600px;
+  height: auto;
+  margin: 0 auto 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  object-fit: cover;
 }
 
 .eyebrow {

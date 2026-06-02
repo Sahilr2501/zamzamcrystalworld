@@ -83,6 +83,32 @@ export const api = {
         files.forEach((file) => formData.append('images', file));
         return request('/api/upload/images', { method: 'POST', body: formData });
     },
+    // Add these to your api.js file
+
+    getAdminStats: async () => {
+        const response = await fetch(`${API_URL}/admin/stats`, {
+            headers: getAuthHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to fetch stats');
+        return response.json();
+    },
+
+    getChartData: async () => {
+        const response = await fetch(`${API_URL}/admin/chart-data`, {
+            headers: getAuthHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to fetch chart data');
+        return response.json();
+    },
+
+    getOrders: async (params = {}) => {
+        const query = new URLSearchParams(params).toString();
+        const response = await fetch(`${API_URL}/orders?${query}`, {
+            headers: getAuthHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to fetch orders');
+        return response.json();
+    },
 };
 
 export function resolveImageUrl(url) {
@@ -104,3 +130,4 @@ export function productMinPrice(product) {
 export function productImage(product) {
     return resolveImageUrl(product?.images?.[0]);
 }
+

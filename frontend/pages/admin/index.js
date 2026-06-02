@@ -19,7 +19,7 @@ export default function AdminDashboard() {
                     revenue,
                 });
             })
-            .catch(() => {});
+            .catch(() => { });
     }, []);
 
     return (
