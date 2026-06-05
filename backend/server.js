@@ -34,13 +34,13 @@ app.use(
                 ...((process.env.CORS_ORIGIN || '')
                     .split(',')
                     .map((s) => s.trim())
-                    .filter(Boolean)) || []),
+                    .filter(Boolean)),
             ];
 
-if (allowlist.includes(origin)) return callback(null, true);
-return callback(new Error(`CORS blocked origin: ${origin}`));
+            if (allowlist.includes(origin)) return callback(null, true);
+            return callback(new Error(`CORS blocked origin: ${origin}`));
         },
-credentials: true,
+        credentials: true,
     })
 );
 
