@@ -20,7 +20,26 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || true,
+    // When credentials are used, the server cannot blindly return "*".
+    // Use a dynamic origin function to properly support multiple frontend origins
+    // (local dev + deployed domains).
+    origin: (origin, callback) => {
+        // Allow non-browser requests (no Origin header)
+        if (!origin) return callback(null, true);
+
+        // If CORS_ORIGIN is set, treat it as a comma-separated allowlist.
+        // Example: CORS_ORIGIN="https://zamzamcrystalworld.vercel.app,http://localhost:3000"
+        const allowlist = (process.env.CORS_ORIGIN || '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean);
+
+        // If no allowlist provided, allow all origins.
+        if (allowlist.length === 0) return callback(null, true);
+
+        if (allowlist.includes(origin)) return callback(null, true);
+        return callback(new Error(`CORS blocked origin: ${origin}`));
+    },
     credentials: true,
 }));
 app.use(express.json());
