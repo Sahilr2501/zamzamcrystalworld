@@ -19,29 +19,33 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors({
-    // When credentials are used, the server cannot blindly return "*".
-    // Use a dynamic origin function to properly support multiple frontend origins
-    // (local dev + deployed domains).
-    origin: (origin, callback) => {
-        // Allow non-browser requests (no Origin header)
-        if (!origin) return callback(null, true);
+// CORS must respond to both actual requests and preflight (OPTIONS) requests.
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            // Allow non-browser requests (no Origin header)
+            if (!origin) return callback(null, true);
 
-        // If CORS_ORIGIN is set, treat it as a comma-separated allowlist.
-        // Example: CORS_ORIGIN="https://zamzamcrystalworld.vercel.app,http://localhost:3000"
-        const allowlist = (process.env.CORS_ORIGIN || '')
-            .split(',')
-            .map((s) => s.trim())
-            .filter(Boolean);
+            // Allow the deployed frontend origin by default.
+            const defaultAllow = ['https://zamzamcrystalworld.vercel.app'];
 
-        // If no allowlist provided, allow all origins.
-        if (allowlist.length === 0) return callback(null, true);
+            const allowlist = [
+                ...defaultAllow,
+                ...((process.env.CORS_ORIGIN || '')
+                    .split(',')
+                    .map((s) => s.trim())
+                    .filter(Boolean)) || []),
+            ];
 
-        if (allowlist.includes(origin)) return callback(null, true);
-        return callback(new Error(`CORS blocked origin: ${origin}`));
-    },
-    credentials: true,
-}));
+if (allowlist.includes(origin)) return callback(null, true);
+return callback(new Error(`CORS blocked origin: ${origin}`));
+        },
+credentials: true,
+    })
+);
+
+// Explicit preflight handling (prevents ERR_FAILED with missing Access-Control-Allow-Origin)
+app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(path.resolve(UPLOAD_DIR)));
